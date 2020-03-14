@@ -37,40 +37,45 @@ newObj.renderSection();
 
 var select = document.getElementById('imgSelected');
 
-imageRender.addEventListener('click', selectImage);
-
-var slectedArray = [];
-
 function setImages() {
-    var imageStorage = JSON.stringify(slectedArray);
+    var imageStorage = JSON.stringify(Image.all);
     localStorage.setItem('imgStore', imageStorage);
 }
 
-function render() {
-    for (var i = 0; i < slectedArray.length; i++) {
-        var selectedImage = document.createElement('img');
-        select.appendChild(selectedImage);
-        selectedImage.setAttribute('src', slectedArray[i]);
+
+imageRender.addEventListener('click', selectImage);
+var clickNum = 0;
+
+function selectImage(e) {
+
+    if (clickNum < 5) {
+        if (event.target.id !== 'images') {
+
+            for (var i = 0; i < images.log; i++) {
+                if (event.target.id == image[i]) {
+                    var newImgs = document.createElement('img');
+
+                }
+            }
+            clickNum++
+            setImages();
+        }
+    } else {
+        imageRender.removeEventListener('click', selectImage);
+        alert('Your clicks ended');
+
     }
 }
 
-function selectImage(e) {
-    for (var i = 0; i < images.length; i++) {
-        if (event.target.id == images[i]) {
-            slectedArray.push(`img/${images[i]}.jpg`);
-            console.log('asa', slectedArray);
-            setImages();
-            render();
-        }
-    }
+
+function render() {
+
 }
+getImages();
 
 
 function getImages() {
     var newContent = JSON.parse(localStorage.getItem('imgStore'));
 
     render();
-    console.log('Array', newContent);
-
 }
-getImages();
